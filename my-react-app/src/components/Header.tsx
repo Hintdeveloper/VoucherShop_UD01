@@ -4,6 +4,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ButtonConnect from './ButtonConnect';
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -77,12 +79,14 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
           />
         </Search>
         <div style={{ flexGrow: 1 }} />
-        <IconButton color="inherit">
+        {/* <IconButton color="inherit">
           <ShoppingCartIcon />
         </IconButton>
         <IconButton color="inherit">
           <AccountCircleIcon />
-        </IconButton>
+        </IconButton> */}
+        <ButtonConnect />
+
       </Toolbar>
     </AppBar>
   );

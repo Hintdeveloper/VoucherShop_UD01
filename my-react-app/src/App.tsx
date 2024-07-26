@@ -6,6 +6,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Sidebar from './components/Sidebar';
 import ProductList from './components/ProductList';
 import "./App.css";
+import ButtonConnect from "./components/ButtonConnect";
+
 import React, { useMemo, useState } from "react";
 import {
   ConnectionProvider,
@@ -165,7 +167,7 @@ function App() {
 
   return (
     <>
-      <ConnectionProvider endpoint={endpoint}>
+      {/* <ConnectionProvider endpoint={endpoint}>
         <WalletProvider wallets={wallets} autoConnect>
           <WalletModalProvider>
             <WalletMultiButton />
@@ -173,7 +175,7 @@ function App() {
             <SendSPL />
           </WalletModalProvider>
         </WalletProvider>
-      </ConnectionProvider>
+      </ConnectionProvider> */}
 
       <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -201,12 +203,13 @@ function App() {
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
-          <IconButton color="inherit">
+          {/* <IconButton color="inherit">
             <ShoppingCartIcon />
           </IconButton>
           <IconButton color="inherit">
             <AccountCircleIcon />
-          </IconButton>
+          </IconButton> */}
+          <ButtonConnect />
         </Toolbar>
       </AppBar>
       <Box
