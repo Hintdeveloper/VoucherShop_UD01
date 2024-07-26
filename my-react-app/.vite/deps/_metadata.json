@@ -1,0 +1,55 @@
+{
+  "hash": "4af6e4d2",
+  "configHash": "98848811",
+  "lockfileHash": "aa2a249c",
+  "browserHash": "2f528d08",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "93d56432",
+      "needsInterop": true
+    },
+    "@mui/material": {
+      "src": "../../node_modules/@mui/material/index.js",
+      "file": "@mui_material.js",
+      "fileHash": "a80be43a",
+      "needsInterop": false
+    },
+    "@mui/icons-material/SportsSoccer": {
+      "src": "../../node_modules/@mui/icons-material/SportsSoccer.js",
+      "file": "@mui_icons-material_SportsSoccer.js",
+      "fileHash": "e26091ab",
+      "needsInterop": true
+    },
+    "@mui/icons-material/SportsBasketball": {
+      "src": "../../node_modules/@mui/icons-material/SportsBasketball.js",
+      "file": "@mui_icons-material_SportsBasketball.js",
+      "fileHash": "2098dd1b",
+      "needsInterop": true
+    },
+    "@mui/icons-material/DirectionsRun": {
+      "src": "../../node_modules/@mui/icons-material/DirectionsRun.js",
+      "file": "@mui_icons-material_DirectionsRun.js",
+      "fileHash": "533b0e7e",
+      "needsInterop": true
+    },
+    "@mui/icons-material/CardGiftcard": {
+      "src": "../../node_modules/@mui/icons-material/CardGiftcard.js",
+      "file": "@mui_icons-material_CardGiftcard.js",
+      "fileHash": "5936eea7",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-HBH3Y6WS": {
+      "file": "chunk-HBH3Y6WS.js"
+    },
+    "chunk-73FCKOPX": {
+      "file": "chunk-73FCKOPX.js"
+    },
+    "chunk-45FXRYJS": {
+      "file": "chunk-45FXRYJS.js"
+    }
+  }
+}
