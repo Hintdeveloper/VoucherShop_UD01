@@ -1,13 +1,13 @@
-import React from 'react';
-import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
-import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
-import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
-import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
+import React from "react";
+import { Box, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
+import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
+import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
+import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 
 const Sidebar: React.FC = () => {
   return (
-    <div>
+    <Box sx={{ marginTop: "60px" }}>
       <List>
         <ListItem button>
           <ListItemIcon>
@@ -34,7 +34,7 @@ const Sidebar: React.FC = () => {
           <ListItemText primary="Voucher" />
         </ListItem>
       </List>
-    </div>
+    </Box>
   );
 };
 
