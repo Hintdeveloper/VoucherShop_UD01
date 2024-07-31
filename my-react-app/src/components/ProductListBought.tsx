@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { Grid, Card, CardContent, Typography } from "@mui/material";
-import { useSelector, useDispatch } from "react-redux";
+import { Card, CardContent, Grid, Typography } from "@mui/material";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getState } from "./redux/slices/VoucherSlices";
 
-const ProductList: React.FC = () => {
+const ProductListBought: React.FC = () => {
   const dispatch = useDispatch();
   const data = useSelector(getState);
 
@@ -29,4 +29,4 @@ const ProductList: React.FC = () => {
   );
 };
 
-export default ProductList;
+export default ProductListBought;
