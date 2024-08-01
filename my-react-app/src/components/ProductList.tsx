@@ -46,9 +46,8 @@ console.log(listProduct)
 
 
 
-  const sendToken = async (amount: string) => {
-    console.log(wallet.publicKey?.toBase58())
-    console.log(amount)
+  const sendToken = async (amount: string,idPrd:string) => {
+
     // const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
     const connection = new Connection(
       "https://api.devnet.solana.com",
@@ -86,7 +85,9 @@ console.log(listProduct)
       );
 
       await wallet.sendTransaction(transaction, connection);
-
+      gameshiftService.BuyVoucher("hientranle1209@gmail.com",senderPublicKey.toBase58(),idPrd)
+      console.log(senderPublicKey.toBase58())
+      console.log(amount)
 
     } catch (error) {
       console.log("err: ", error)
@@ -110,7 +111,7 @@ console.log(listProduct)
                 })} VND
               </Typography>
             </CardContent>
-            <button onClick={()=>sendToken(product.attributes[0].value)}>BUY</button>
+            <button onClick={()=>sendToken(product.attributes[0].value,product.id)}>BUY</button>
           </Card>
         </Grid>
       ))}

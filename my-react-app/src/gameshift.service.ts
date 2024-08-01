@@ -13,9 +13,9 @@ const COLLECTION_ID = "0a6c5a8b-375c-4e58-a19d-6c250c69b3cc"
 const CLIENT_COLLECTION_ID = "1a607e13-7388-4df5-ad3b-a00826258a9c"
 
 //Supabase
-const SUPABASE_URL ='https://urlvurzbkwpnwemuykbp.supabase.co'
+const SUPABASE_URL = 'https://urlvurzbkwpnwemuykbp.supabase.co'
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVybHZ1cnpia3dwbndlbXV5a2JwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjI0MzY5NzEsImV4cCI6MjAzODAxMjk3MX0.SQinsYRiyhrsnFKX8_X_eahTx6VtFZIqc0P364owD34'
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY); //hình như sia key
 
 class GameShiftService {
     private axiosGameShift: AxiosInstance;
@@ -57,48 +57,50 @@ class GameShiftService {
             data
         );
     }
-    async BuyVoucher(price: number, referenceId: string, walletAddress: string, voucherName: string) {
+    async BuyVoucher(referenceId: string, walletAddress: string, itemID: string) {
 
-        const data = {
-            details: {
-                collectionId: CLIENT_COLLECTION_ID,
-                description: "A list of voucher",
-                name: voucherName,
-                attributes: [
-                    {
-                        traitType: 'price',
-                        value: price.toString(),
-                    },
-                ],
-            },
-            destinationUserReferenceId: referenceId,
-        };
+        // const data = {
+        //     details: {
+        //         collectionId: CLIENT_COLLECTION_ID,
+        //         description: "This is a voucher",
+        //         imageUrl: 'https://urlvurzbkwpnwemuykbp.supabase.co/storage/v1/object/public/ImageBucket/pngwing.com.png?t=2024-07-31T14%3A44%3A37.537Z',
+        //         name: voucherName,
+        //         attributes: [
+        //             {
+        //                 traitType: 'price',
+        //                 value: price.toString(),
+        //             },
+        //         ],
+        //     },
+        //     destinationUserReferenceId: referenceId,
+        // };
 
-        const createNft = await this.axiosGameShift.post(GAME_SHIFT_URL + '/unique-assets',
-            data
-        );
+        // const createNft = await this.axiosGameShift.post(GAME_SHIFT_URL + '/unique-assets',
+        //     data
+        // );
+        // console.log(createNft.data.id)
+        // const idnewNft = createNft.data.id;
 
-        const idnewNft = createNft.data.item.id;
 
-        const transferNft = await this.axiosGameShift.post(GAME_SHIFT_URL + `/users/${referenceId}/items/${idnewNft}/transfer`, {
+        const transferNft = await this.axiosGameShift.post(GAME_SHIFT_URL + `/users/${referenceId}/items/${itemID}/transfer`, {
             destinationWallet: walletAddress,
             quantity: '1',
         });
-
         const URLConfirm = transferNft.data.consentUrl;
+        console.log(typeof (URLConfirm));
 
-        //
 
-        const { error } = await supabase
-            .from('email_confirmation')
-            .insert({ id: 1, url: URLConfirm})
+        const { data } = await supabase.from("email_confirmation").insert({ emailURL: URLConfirm }).select()//ko cần phải chạy id đâu, toi dể identity 1 1 r nó tự tăng
+        console.log("insert: ", data)
+
+
     }
 
     async fetchVoucherlist() {
         const params = {
             collectionId: COLLECTION_ID
         }
-        return await this.axiosGameShift.get(GAME_SHIFT_URL + '/items');     
+        return await this.axiosGameShift.get(GAME_SHIFT_URL + '/items');
     }
 
     async fetchBoughtVoucherlist() {
