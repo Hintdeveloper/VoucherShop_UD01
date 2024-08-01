@@ -14,6 +14,8 @@ import { clusterApiUrl } from "@solana/web3.js";
 import SendSol from "./SendSol";
 import "@solana/wallet-adapter-react-ui/styles.css";
 import SendSPL from "./SendTokenForm";
+import ProductList from "./ProductList";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 export default function ButtonConnect() {
   const network = WalletAdapterNetwork.Devnet;
@@ -21,6 +23,8 @@ export default function ButtonConnect() {
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
   const wallets = useMemo(() => [new UnsafeBurnerWalletAdapter()], [network]);
+
+  const wallet = useWallet()
 
   return (
     <>

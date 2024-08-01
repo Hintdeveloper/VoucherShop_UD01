@@ -1,17 +1,50 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../Store";
+import gameshiftService from "../../../gameshift.service";
 
-const initialState = [
-  { id: 1, name: "Tiempo Legend 8", price: 3899 },
-  { id: 2, name: "Mercurial Vapor 13", price: 3899 },
-  { id: 3, name: "Mercurial Vapor 13", price: 3899 },
-  { id: 4, name: "Mercurial Vapor 13", price: 3899 },
-  { id: 5, name: "Mercurial Vapor 13", price: 3899 },
-  { id: 6, name: "Mercurial Vapor 13", price: 3899 },
-  { id: 7, name: "Mercurial Vapor 13", price: 3899 },
-  { id: 8, name: "Mercurial Vapor 13", price: 3899 },
-];
 
+// const initialState = [
+//   { id: 1, name: "Tiempo Legend 8", price: 3899 },
+//   { id: 2, name: "Mercurial Vapor 13", price: 3899 },
+//   { id: 3, name: "Mercurial Vapor 13", price: 3899 },
+//   { id: 4, name: "Mercurial Vapor 13", price: 3899 },
+//   { id: 5, name: "Mercurial Vapor 13", price: 3899 },
+//   { id: 6, name: "Mercurial Vapor 13", price: 3899 },
+//   { id: 7, name: "Mercurial Vapor 13", price: 3899 },
+//   { id: 8, name: "Mercurial Vapor 13", price: 3899 },
+// ];
+export type voucherType = {
+  id: string;
+    collection: {
+        id: string;
+        name: string;
+        description: string;
+        environment: string;
+        imageUrl: string;
+        imported: boolean;
+        mintAddress: string;
+        created: number;
+    };
+    created: number;
+    attributes: Array<{
+        value: string;
+        traitType: string;
+    }>;
+    name: string;
+    description: string;
+    environment: string;
+    escrow: boolean;
+    imageUrl: string;
+    imported: boolean;
+    priceCents: number | null;
+    status: string;
+    mintAddress: string;
+    owner: {
+        address: string;
+        referenceId: string;
+    };
+}[]
+const initialState: voucherType = [];
 const voucherSlice = createSlice({
   name: "slice",
   initialState: initialState,

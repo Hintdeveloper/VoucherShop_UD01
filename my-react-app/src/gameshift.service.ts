@@ -1,13 +1,25 @@
 import { AxiosInstance } from 'axios';
 import { createAxiosInstance } from './utils/axios';
+import { createClient } from '@supabase/supabase-js';
 
+
+
+
+
+//Declare URL and key
+//Gameshift
 const GAME_SHIFT_URL = 'https://api.gameshift.dev/nx';
 const COLLECTION_ID = "0a6c5a8b-375c-4e58-a19d-6c250c69b3cc"
 const CLIENT_COLLECTION_ID = "1a607e13-7388-4df5-ad3b-a00826258a9c"
 
+//Supabase
+const SUPABASE_URL ='https://urlvurzbkwpnwemuykbp.supabase.co'
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVybHZ1cnpia3dwbndlbXV5a2JwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjI0MzY5NzEsImV4cCI6MjAzODAxMjk3MX0.SQinsYRiyhrsnFKX8_X_eahTx6VtFZIqc0P364owD34'
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 class GameShiftService {
     private axiosGameShift: AxiosInstance;
+    fetchVoucherlists: any;
 
     constructor() {
         this.axiosGameShift = createAxiosInstance(GAME_SHIFT_URL, {
@@ -29,7 +41,7 @@ class GameShiftService {
             details: {
                 collectionId: COLLECTION_ID,
                 description: "This is a voucher",
-                imageUrl: 'https://crossmint.myfilebase.com/ipfs/QmaVK4z7RFM3PFLRWh3CSvUc9BpYCm9RCysN7uFMYh7ctG',
+                imageUrl: 'https://urlvurzbkwpnwemuykbp.supabase.co/storage/v1/object/public/ImageBucket/pngwing.com.png?t=2024-07-31T14%3A44%3A37.537Z',
                 name: voucherName,
                 attributes: [
                     {
@@ -44,15 +56,14 @@ class GameShiftService {
         return await this.axiosGameShift.post(GAME_SHIFT_URL + '/unique-assets',
             data
         );
-    },
-    async BuyVoucher(price: number, referenceId: string, walletAddress?: string) {
+    }
+    async BuyVoucher(price: number, referenceId: string, walletAddress: string, voucherName: string) {
 
         const data = {
             details: {
                 collectionId: CLIENT_COLLECTION_ID,
                 description: "A list of voucher",
-                imageUrl: 'https://crossmint.myfilebase.com/ipfs/QmaVK4z7RFM3PFLRWh3CSvUc9BpYCm9RCysN7uFMYh7ctG',
-                name: 'Voucher List',
+                name: voucherName,
                 attributes: [
                     {
                         traitType: 'price',
@@ -69,28 +80,25 @@ class GameShiftService {
 
         const idnewNft = createNft.data.item.id;
 
-        const tranferNft = await this.axiosGameShift.post(GAME_SHIFT_URL + `/users/${referenceId}/items/${idnewNft}/transfer`, {
+        const transferNft = await this.axiosGameShift.post(GAME_SHIFT_URL + `/users/${referenceId}/items/${idnewNft}/transfer`, {
             destinationWallet: walletAddress,
             quantity: '1',
         });
 
-        const URLConfirm = tranferNft.data.consentUrl;
+        const URLConfirm = transferNft.data.consentUrl;
 
         //
 
         const { error } = await supabase
-            .from('tranfer_transaction')
-            .insert({ id: 1, url: URLConfirm, status: 'true' })
+            .from('email_confirmation')
+            .insert({ id: 1, url: URLConfirm})
     }
 
     async fetchVoucherlist() {
-
         const params = {
             collectionId: COLLECTION_ID
         }
-        return await this.axiosGameShift.get(GAME_SHIFT_URL + '/items',
-
-        );
+        return await this.axiosGameShift.get(GAME_SHIFT_URL + '/items');     
     }
 
     async fetchBoughtVoucherlist() {
