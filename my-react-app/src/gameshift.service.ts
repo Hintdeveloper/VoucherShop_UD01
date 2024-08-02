@@ -9,8 +9,8 @@ import { createClient } from '@supabase/supabase-js';
 //Declare URL and key
 //Gameshift
 const GAME_SHIFT_URL = 'https://api.gameshift.dev/nx';
-const COLLECTION_ID = "0a6c5a8b-375c-4e58-a19d-6c250c69b3cc"
-const CLIENT_COLLECTION_ID = "1a607e13-7388-4df5-ad3b-a00826258a9c"
+const COLLECTION_ID = "b1318df5-7ee5-491e-9157-1fc59bf6b202"
+// const CLIENT_COLLECTION_ID = "1a607e13-7388-4df5-ad3b-a00826258a9c"
 
 //Supabase
 const SUPABASE_URL = 'https://urlvurzbkwpnwemuykbp.supabase.co'
@@ -24,7 +24,7 @@ class GameShiftService {
     constructor() {
         this.axiosGameShift = createAxiosInstance(GAME_SHIFT_URL, {
             'x-api-key':
-                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOiJiZjJiODlkMC0xODdmLTQwN2UtODAzMi1mM2YyMzhkODFmNTYiLCJzdWIiOiJmNTIxMTcxOC0xYjdiLTRkM2YtYjhiOS1hODVjMjQ0ZDBiOGMiLCJpYXQiOjE3MjIzMjg2MDV9.MMC-7pLrQo5Yu6SknGvQsqDeoV5kKJwnetESGLLYOn4',
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOiIzYTM5ZThhNS02NmJjLTQxZTEtODM1NC02N2ZjN2MzNzliYzEiLCJzdWIiOiJhODdiMjU1YS1iNjhkLTQ5MTAtYTMwYi1mN2I5Y2QxZTM5M2QiLCJpYXQiOjE3MjI1Njk4MjV9.vg7rMaD6okcgpmdPdRDn3JZklm_AiprKmB3IK9o_YmY',
         });
     }
 
@@ -92,8 +92,11 @@ class GameShiftService {
 
         const { data } = await supabase.from("email_confirmation").insert({ emailURL: URLConfirm }).select()//ko cần phải chạy id đâu, toi dể identity 1 1 r nó tự tăng
         console.log("insert: ", data)
-
-
+        if (data !== null) {
+            window.open(data[0].emailURL)
+            await supabase.from('email_confirmation').update({ status: true }).eq('emailURL', data[0].emailURL)
+            await supabase.from('email_confirmation').delete().eq('status', true)
+        }
     }
 
     async fetchVoucherlist() {
@@ -103,15 +106,15 @@ class GameShiftService {
         return await this.axiosGameShift.get(GAME_SHIFT_URL + '/items');
     }
 
-    async fetchBoughtVoucherlist() {
+    // async fetchBoughtVoucherlist() {
 
-        const params = {
-            collectionId: CLIENT_COLLECTION_ID
-        }
-        return await this.axiosGameShift.get(GAME_SHIFT_URL + '/items',
+    //     const params = {
+    //         collectionId: CLIENT_COLLECTION_ID
+    //     }
+    //     return await this.axiosGameShift.get(GAME_SHIFT_URL + '/items',
 
-        );
-    }
+    //     );
+    // }
 
 
     async fetchUser(referenceId: string) {

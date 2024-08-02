@@ -7,7 +7,7 @@ export function CreateVoucherForm() {
   // const selector = useSelector(getState);
   const [nameVoucher, setNameVoucher] = useState("");
   const [priceVoucher, setPriceVoucher] = useState(0);
-  const email = "admin@gmail.com";
+  const email = "hientranle1209@gmail.com";
 
   const handleSubmit = () => {
     // const newVoucher = {

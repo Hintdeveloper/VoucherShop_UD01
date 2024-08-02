@@ -32,7 +32,7 @@ const ProductList: React.FC = () => {
     gameshiftService.fetchVoucherlist().then(res=>{
       // console.log(res.data.data);
       const data = res.data.data;
-      const fileterData = data.filter((item: any) => item.type === 'UniqueAsset');
+      const fileterData = data.filter((item: any) => item.type === 'UniqueAsset' && item.owner == 'hientranle1209@gmail.com');
       setlistProduct(fileterData.map((item: any) => item.item));
       if(wallet.connected){
         localStorage.setItem("publicKeyClient",JSON.stringify(wallet.publicKey?.toBase58()))
@@ -47,6 +47,7 @@ console.log(listProduct)
 
 
   const sendToken = async (amount: string,idPrd:string) => {
+    console.log(wallet.publicKey?.toBase58())
 
     // const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
     const connection = new Connection(
