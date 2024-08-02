@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import gameshiftService from '../gameshift.service';
 
 export function CreateVoucherForm() {
@@ -8,6 +8,8 @@ export function CreateVoucherForm() {
   const [nameVoucher, setNameVoucher] = useState("");
   const [priceVoucher, setPriceVoucher] = useState(0);
   const email = "hientranle1209@gmail.com";
+
+  const router = useNavigate();
 
   const handleSubmit = () => {
     // const newVoucher = {
@@ -52,7 +54,7 @@ export function CreateVoucherForm() {
             style={{ width: "300px", height: "40px" }}
           />
         </div>
-        <Link to="/">
+        <Link to="/list">
           <button
             type="submit"
             onClick={handleSubmit}

@@ -7,6 +7,8 @@ import ProductListBought from "./components/ProductListBought";
 import store from "./components/redux/Store";
 import LoginPage from "./login";
 import WalletContextProvider from "./wallet";
+import LandingPage from "./components/LandingPage";
+
 
 /*
 const App: React.FC = () => {
@@ -98,10 +100,11 @@ function App() {
     <WalletContextProvider>
     <Provider store={store}>
       <Routes>
-        <Route path="/" Component={HomePage} />
+        <Route path="/" Component={LandingPage} />
         <Route path="/login" Component={LoginPage} />
         <Route path="/addvoucher" Component={CreateVoucherForm} />
-        <Route path="/boughtlist" Component={ProductListBought} />
+        {/* <Route path="/boughtlist" Component={ProductListBought} /> */}
+        <Route path="/list" Component={HomePage} />
       </Routes>
     </Provider>
     </WalletContextProvider>

@@ -99,11 +99,11 @@ class GameShiftService {
         }
     }
 
-    async fetchVoucherlist() {
+    async fetchVoucherlist(referenceId: string) {
         const params = {
             collectionId: COLLECTION_ID
         }
-        return await this.axiosGameShift.get(GAME_SHIFT_URL + '/items');
+        return await this.axiosGameShift.get(GAME_SHIFT_URL + `/items?ownerReferenceId=${referenceId}`);
     }
 
     // async fetchBoughtVoucherlist() {

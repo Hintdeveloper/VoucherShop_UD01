@@ -22,7 +22,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
       if (res && res.status == 200) {
         setEmail(email);
         setIsAuthenticated(true);
-        router('/');
+        router('/list');
       }
     } catch (error: any) {        
       alert("Không thể login");

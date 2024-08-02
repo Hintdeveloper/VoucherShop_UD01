@@ -93,7 +93,7 @@ export default function HomePage() {
 
   return (
     <>
-      {/* <LoginForm /> */}
+      {/* <LoginForm /> */} 
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar
@@ -110,7 +110,7 @@ export default function HomePage() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap component="div">
+            <Typography variant="h6" noWrap component="div" style={{ color: "white" }}>
               List Voucher
             </Typography>
             <Search>
@@ -177,7 +177,7 @@ export default function HomePage() {
           }}
         >
           <Toolbar />
-          <h1>List</h1>
+          <Typography variant='h2' fontFamily='"Calistoga", serif' color={"white"}>Voucher</Typography>
           <ProductList />
         </Box>
       </Box>

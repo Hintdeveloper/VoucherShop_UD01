@@ -17,22 +17,23 @@ import {
 } from "@solana/web3.js";
 import SendSPL from "./SendTokenForm";
 import { json } from "react-router-dom";
-
+import '../styles/listproduct.scss'
 
 
 const ProductList: React.FC = () => {
   const dispatch = useDispatch();
   const wallet = useWallet()
   // const data = useSelector(getState);
+  const email = "hientranle1209@gmail.com";
 
   const [listProduct, setlistProduct] = useState<voucherType>(useSelector(getState));
   let price=0;
 
   useEffect(() => {
-    gameshiftService.fetchVoucherlist().then(res=>{
+    gameshiftService.fetchVoucherlist(email).then(res=>{
       // console.log(res.data.data);
       const data = res.data.data;
-      const fileterData = data.filter((item: any) => item.type === 'UniqueAsset' && item.owner == 'hientranle1209@gmail.com');
+      const fileterData = data.filter((item: any) => item.type === 'UniqueAsset');
       setlistProduct(fileterData.map((item: any) => item.item));
       if(wallet.connected){
         localStorage.setItem("publicKeyClient",JSON.stringify(wallet.publicKey?.toBase58()))
@@ -102,6 +103,7 @@ console.log(listProduct)
         <Grid item xs={14} sm={8} md={6} lg={5} key={product.id}>
           <Card key={product.id}>
             <CardContent>
+              <img src={product.imageUrl}/>
               <Typography variant="h5" component="div">
                 {product.name}
               </Typography>
@@ -112,7 +114,7 @@ console.log(listProduct)
                 })} VND
               </Typography>
             </CardContent>
-            <button onClick={()=>sendToken(product.attributes[0].value,product.id)}>BUY</button>
+            <button onClick={()=>sendToken(product.attributes[0].value,product.id)}><span className="text">BUY</span></button>
           </Card>
         </Grid>
       ))}

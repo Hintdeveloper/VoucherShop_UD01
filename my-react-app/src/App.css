@@ -4,6 +4,11 @@
   padding: 2rem;
   text-align: center;
 }
+.calistoga-regular {
+  font-family: "Calistoga", serif;
+  font-weight: 400;
+  font-style: normal;
+}
 
 .logo {
   height: 6em;
