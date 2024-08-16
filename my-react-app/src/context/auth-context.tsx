@@ -25,7 +25,12 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
         router('/list');
       }
     } catch (error: any) {        
-      alert("Không thể login");
+      const res = await gameshiftService.createUser(email);
+      if (res && res.status === 201) {
+        setEmail(email);
+        setIsAuthenticated(true);
+        router('/list');
+      }
     }
   };
 

@@ -101,7 +101,7 @@ function App() {
     <Provider store={store}>
       <Routes>
         <Route path="/" Component={LandingPage} />
-        <Route path="/login" Component={LoginPage} />
+        <Route path="/register" Component={LoginPage} />
         <Route path="/addvoucher" Component={CreateVoucherForm} />
         {/* <Route path="/boughtlist" Component={ProductListBought} /> */}
         <Route path="/list" Component={HomePage} />

@@ -1,10 +1,12 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, IconButton, InputBase, alpha, styled } from '@mui/material';
+import { AppBar, Toolbar, Typography, IconButton, InputBase, alpha, styled, ListItem, ListItemIcon, ListItemText} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import ButtonConnect from './ButtonConnect';
+import { Link } from "react-router-dom";
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -67,9 +69,9 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap>
-          List Voucher
+          NFA Marketplace
         </Typography>
-        <Search>
+        {/* <Search>
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>
@@ -77,7 +79,16 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
             placeholder="Search…"
             inputProps={{ 'aria-label': 'search' }}
           />
-        </Search>
+        </Search> */}
+        <Link to="/addvoucher" style={{ color: "black" }}>
+          <ListItem button>
+            <ListItemIcon>
+              <LibraryAddIcon />
+            </ListItemIcon>
+            <ListItemText primary="Voucher" />
+          </ListItem>
+        </Link>
+
         <div style={{ flexGrow: 1 }} />
         {/* <IconButton color="inherit">
           <ShoppingCartIcon />

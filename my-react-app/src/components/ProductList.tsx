@@ -27,7 +27,6 @@ const ProductList: React.FC = () => {
   const email = "hientranle1209@gmail.com";
 
   const [listProduct, setlistProduct] = useState<voucherType>(useSelector(getState));
-  let price=0;
 
   useEffect(() => {
     gameshiftService.fetchVoucherlist(email).then(res=>{
@@ -47,7 +46,7 @@ console.log(listProduct)
 
 
 
-  const sendToken = async (amount: string,idPrd:string) => {
+  const sendToken = async (amount: number,idPrd:string) => {
     console.log(wallet.publicKey?.toBase58())
 
     // const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
@@ -82,7 +81,7 @@ console.log(listProduct)
           senderTokenAccount,
           recipientTokenAccount,
           senderPublicKey,
-          parseFloat(amount)
+          amount
         )
       );
 
@@ -108,13 +107,10 @@ console.log(listProduct)
                 {product.name}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                {product.attributes.map(item =>{
-                  price = parseFloat(item.value)
-                  return  item.value;
-                })} VND
+                {product.description}
               </Typography>
             </CardContent>
-            <button onClick={()=>sendToken(product.attributes[0].value,product.id)}><span className="text">BUY</span></button>
+            <button onClick={()=>sendToken(1000,product.id)}><span className="text">BUY</span></button>
           </Card>
         </Grid>
       ))}

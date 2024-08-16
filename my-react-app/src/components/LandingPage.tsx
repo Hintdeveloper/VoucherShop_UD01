@@ -8,12 +8,11 @@ export default function LandingPage() {
     <>
       <div className='container'>
         <div className='BG'>
-          <Typography variant='h1' fontFamily='"Calistoga", serif'>WELCOME TO OUR VOUCHER SHOP</Typography>
-          <Link to={'/login'}>
+          <Typography variant='h1' fontFamily='"Calistoga", serif'>WELCOME TO OUR NFA MARKETPLACE</Typography>
+          <Link to={'/register'}>
             <button className='loginBtn'>
               <span className="text">Get started</span>
             </button>
-
           </Link>
 
         </div>

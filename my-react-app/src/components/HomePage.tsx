@@ -9,6 +9,9 @@ import {
   InputBase,
   styled,
   alpha,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
@@ -32,7 +35,8 @@ import { clusterApiUrl } from "@solana/web3.js";
 import "@solana/wallet-adapter-react-ui/styles.css";
 import SendSPL from "../../src/SendTokenSPL";
 import LoginForm from "./loginForm";
-import { Routes } from "react-router-dom";
+import { Link, Routes } from "react-router-dom";
+import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 
 const drawerWidth = 240;
 
@@ -93,7 +97,7 @@ export default function HomePage() {
 
   return (
     <>
-      {/* <LoginForm /> */} 
+      {/* <LoginForm /> */}
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar
@@ -111,17 +115,17 @@ export default function HomePage() {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div" style={{ color: "white" }}>
-              List Voucher
+              NFA MarketPlace
             </Typography>
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-              />
-            </Search>
+            <Link to="/addvoucher" style={{ color: "black" }}>
+              <ListItem button style={{color: "white"}}>
+                <ListItemIcon>
+                  <LibraryAddIcon />
+                </ListItemIcon>
+                <ListItemText primary="Create NFT" />
+              </ListItem>
+            </Link>
+
             <Box sx={{ flexGrow: 1 }} />
             <ConnectionProvider endpoint={endpoint}>
               <WalletProvider wallets={wallets} autoConnect>
@@ -132,7 +136,7 @@ export default function HomePage() {
             </ConnectionProvider>
           </Toolbar>
         </AppBar>
-        <Box
+        {/* <Box
           component="nav"
           sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
           aria-label="mailbox folders"
@@ -167,7 +171,7 @@ export default function HomePage() {
           >
             <Sidebar />
           </Drawer>
-        </Box>
+        </Box> */}
         <Box
           component="main"
           sx={{

@@ -15,7 +15,7 @@ const COLLECTION_ID = "b1318df5-7ee5-491e-9157-1fc59bf6b202"
 //Supabase
 const SUPABASE_URL = 'https://urlvurzbkwpnwemuykbp.supabase.co'
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVybHZ1cnpia3dwbndlbXV5a2JwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjI0MzY5NzEsImV4cCI6MjAzODAxMjk3MX0.SQinsYRiyhrsnFKX8_X_eahTx6VtFZIqc0P364owD34'
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY); //hình như sia key
+export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 class GameShiftService {
     private axiosGameShift: AxiosInstance;
@@ -28,27 +28,34 @@ class GameShiftService {
         });
     }
 
-    // async createUser(email: string) {
-    //     return await this.axiosGameShift.post(GAME_SHIFT_URL + '/users', {
-    //         email,
-    //         referenceId: email,
-    //     });
-    // }
-
-    async CreateVoucher(price: number, referenceId: string, voucherName: string) {
-
+    async createUser(email: string) {
+        return await this.axiosGameShift.post(GAME_SHIFT_URL + '/users', {
+            email,
+            referenceId: email,
+        });
+    }
+    
+    async CreateVoucher(referenceId: string, voucherName: string, imageFile: File, descriptionUser: string) {
+        // Đặt đường dẫn nơi bạn muốn lưu ảnh trong Supabase bucket
+    const filePath = `public/${imageFile.name}`;
+    
+    // Tải ảnh lên Supabase
+    const { data: uploadData, error: uploadError } = await supabase.storage.from('ImageBucket').upload(filePath, imageFile);
+    if (uploadError) {
+        throw new Error(`Không thể tải ảnh lên: ${uploadError.message}`);
+    }
+    
+    // Lấy URL công khai của ảnh vừa tải lên
+    const { data: urlData} = supabase.storage.from('ImageBucket').getPublicUrl(filePath);
+    
+    // Sử dụng URL công khai từ Supabase
+    const imageURL = urlData.publicUrl; // Sử dụng thuộc tính đúng
         const data = {
             details: {
                 collectionId: COLLECTION_ID,
-                description: "This is a voucher",
-                imageUrl: 'https://urlvurzbkwpnwemuykbp.supabase.co/storage/v1/object/public/ImageBucket/pngwing.com.png?t=2024-07-31T14%3A44%3A37.537Z',
+                description: descriptionUser,
+                imageUrl: imageURL,
                 name: voucherName,
-                attributes: [
-                    {
-                        traitType: 'price',
-                        value: price.toString(),
-                    },
-                ],
             },
             destinationUserReferenceId: referenceId,
         };
