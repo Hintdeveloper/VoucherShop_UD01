@@ -34,23 +34,38 @@ class GameShiftService {
             referenceId: email,
         });
     }
-    
+
     async CreateVoucher(referenceId: string, voucherName: string, imageFile: File, descriptionUser: string) {
         // Đặt đường dẫn nơi bạn muốn lưu ảnh trong Supabase bucket
-    const filePath = `public/${imageFile.name}`;
-    
-    // Tải ảnh lên Supabase
-    const { data: uploadData, error: uploadError } = await supabase.storage.from('ImageBucket').upload(filePath, imageFile);
-    if (uploadError) {
-        throw new Error(`Không thể tải ảnh lên: ${uploadError.message}`);
-    }
-    
-    // Lấy URL công khai của ảnh vừa tải lên
-    const { data: urlData} = supabase.storage.from('ImageBucket').getPublicUrl(filePath);
-    
-    // Sử dụng URL công khai từ Supabase
-    const imageURL = urlData.publicUrl; // Sử dụng thuộc tính đúng
-        const data = {
+        const filePath = `public/${imageFile.name}`;
+
+        // Kiểm tra xem file đã tồn tại trong bucket chưa
+        const { data: listData, error: listError } = await supabase.storage.from('ImageBucket').list('public', {
+            search: imageFile.name,
+        });
+
+        let imageURL: string;
+
+        if (listError) {
+            throw new Error(`Lỗi khi kiểm tra file: ${listError.message}`);
+        }
+
+        if (listData && listData.length > 0) {
+            // File đã tồn tại, lấy URL của file
+            const { data: urlData } = supabase.storage.from('ImageBucket').getPublicUrl(filePath);
+            imageURL = urlData.publicUrl;
+        } else {
+            // File chưa tồn tại, tiến hành upload
+            const { data: uploadData, error: uploadError } = await supabase.storage.from('ImageBucket').upload(filePath, imageFile);
+
+            if (uploadError) {
+                throw new Error(`Không thể tải ảnh lên: ${uploadError.message}`);
+            }
+
+            // Lấy URL công khai của ảnh vừa tải lên
+            const { data: urlData } = supabase.storage.from('ImageBucket').getPublicUrl(filePath);
+            imageURL = urlData.publicUrl;
+        } const data = {
             details: {
                 collectionId: COLLECTION_ID,
                 description: descriptionUser,
